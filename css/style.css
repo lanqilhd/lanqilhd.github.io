@@ -21,7 +21,7 @@
   --radius: 10px;
   --radius-sm: 6px;
   --radius-lg: 16px;
-  --max-width: 860px;
+  --max-width: 960px;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", monospace;
@@ -68,7 +68,7 @@ body {
   font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
-  line-height: 1.75;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background var(--transition), color var(--transition);
@@ -152,19 +152,19 @@ img {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
 /* ===== Sections ===== */
 .section {
-  padding: 80px 0;
+  padding: 100px 0;
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
   color: var(--text);
   position: relative;
   display: inline-block;
@@ -183,7 +183,7 @@ img {
 
 /* ===== Hero ===== */
 .hero {
-  padding: 100px 0 60px;
+  padding: 120px 0 80px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -192,19 +192,19 @@ img {
 .hero-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 24px;
+  padding: 32px;
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 60px;
 }
 
 .hero-card {
   flex: 1;
-  max-width: 440px;
+  max-width: 560px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 36px 32px;
+  padding: 44px 36px;
   box-shadow: var(--card-shadow);
   transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
@@ -212,13 +212,13 @@ img {
 .hero-card-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 
 .hero-avatar {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--border);
@@ -235,8 +235,8 @@ img {
 
 .hero-badge {
   display: inline-block;
-  padding: 4px 14px;
-  font-size: 0.8rem;
+  padding: 5px 16px;
+  font-size: 0.85rem;
   font-weight: 600;
   border-radius: 100px;
   background: var(--accent-light);
@@ -244,31 +244,31 @@ img {
 }
 
 .hero-name {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .hero-subtitle {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 20px;
+  line-height: 1.75;
+  margin-bottom: 24px;
 }
 
 .hero-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 28px;
 }
 
 .hero-tag {
   display: inline-block;
-  padding: 4px 14px;
-  font-size: 0.82rem;
+  padding: 5px 16px;
+  font-size: 0.85rem;
   font-weight: 500;
   border-radius: 100px;
   background: var(--tag-bg);
@@ -279,17 +279,17 @@ img {
 .hero-links {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .hero-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
+  gap: 7px;
+  padding: 9px 20px;
   border-radius: 100px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
   background: var(--bg-secondary);
   color: var(--text-secondary);
@@ -305,8 +305,8 @@ img {
 }
 
 .hero-link svg {
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
   flex-shrink: 0;
 }
 
@@ -318,21 +318,21 @@ img {
 }
 
 .hero-mascot img {
-  max-width: 280px;
-  max-height: 400px;
+  max-width: 320px;
+  max-height: 450px;
   border-radius: var(--radius);
   object-fit: contain;
 }
 
 /* ===== About ===== */
 .about-content {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text);
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .about-content p {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .about-content p:last-child {
@@ -347,7 +347,7 @@ img {
 }
 
 .highlight-card {
-  padding: 20px;
+  padding: 24px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -360,22 +360,22 @@ img {
 }
 
 .highlight-card .icon {
-  font-size: 1.5rem;
-  margin-bottom: 8px;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
 }
 
 .highlight-card .label {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .highlight-card .value {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 /* ===== Projects ===== */
@@ -389,7 +389,7 @@ img {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: 32px;
   transition: all var(--transition);
   display: flex;
   flex-direction: column;
@@ -463,8 +463,8 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
-  padding: 20px 24px;
+  gap: 24px;
+  padding: 24px 28px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -591,7 +591,7 @@ img {
 }
 
 .blog-article-content {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.85;
 }
 
@@ -807,19 +807,20 @@ img {
   }
 
   .hero-name {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   .hero-subtitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .section {
-    padding: 56px 0;
+    padding: 72px 0;
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    margin-bottom: 32px;
   }
 
   .projects-grid {
@@ -851,35 +852,39 @@ img {
 
 @media (max-width: 480px) {
   .hero {
-    padding: 88px 0 24px;
+    padding: 100px 0 32px;
   }
 
   .hero-inner {
-    gap: 20px;
-    padding: 12px;
+    gap: 24px;
+    padding: 16px;
   }
 
   .hero-card {
-    padding: 20px 18px;
+    padding: 24px 20px;
   }
 
   .hero-card-header {
-    gap: 12px;
-    margin-bottom: 14px;
+    gap: 14px;
+    margin-bottom: 18px;
   }
 
   .hero-avatar {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
   }
 
   .hero-name {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
   }
 
   .hero-mascot img {
-    max-width: 150px;
-    max-height: 200px;
+    max-width: 170px;
+    max-height: 220px;
   }
 
   .about-highlights {
