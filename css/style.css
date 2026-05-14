@@ -195,8 +195,16 @@ img {
   gap: 60px;
 }
 
-.hero-card {
+.hero-left {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.hero-card {
+  flex: 0 0 auto;
   max-width: 560px;
 }
 
@@ -313,6 +321,32 @@ img {
   max-width: 420px;
   border-radius: var(--radius);
   object-fit: contain;
+}
+
+/* ===== Hero Stats ===== */
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-stat-num {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
 }
 
 /* ===== About ===== */
@@ -800,6 +834,14 @@ img {
     max-height: 340px;
   }
 
+  .hero-left {
+    gap: 20px;
+  }
+
+  .hero-stats {
+    gap: 24px;
+  }
+
   .hero-name {
     font-size: 1.5rem;
   }
@@ -887,6 +929,22 @@ img {
     max-width: 170px;
     height: auto;
     max-height: 220px;
+  }
+
+  .hero-left {
+    gap: 16px;
+  }
+
+  .hero-stats {
+    gap: 20px;
+  }
+
+  .hero-stat-num {
+    font-size: 1rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.72rem;
   }
 
   .about-highlights {

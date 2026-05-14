@@ -5,6 +5,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const fadeElements = document.querySelectorAll(".fade-in");
 
   renderBlogList();
+  updateHeroStats();
+
+  function updateHeroStats() {
+    const postsEl = document.getElementById("stat-posts");
+    const updatedEl = document.getElementById("stat-updated");
+    if (postsEl && typeof posts !== "undefined") {
+      postsEl.textContent = posts.length;
+    }
+    if (updatedEl && typeof posts !== "undefined" && posts.length > 0) {
+      const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+      const latest = new Date(sorted[0].date);
+      const now = new Date();
+      const diffDays = Math.floor((now - latest) / (1000 * 60 * 60 * 24));
+      if (diffDays === 0) updatedEl.textContent = "今天";
+      else if (diffDays === 1) updatedEl.textContent = "昨天";
+      else if (diffDays <= 7) updatedEl.textContent = diffDays + " 天前";
+      else if (diffDays <= 30) updatedEl.textContent = Math.floor(diffDays / 7) + " 周前";
+      else updatedEl.textContent = formatDateShort(sorted[0].date);
+    }
+  }
+
+  function formatDateShort(dateStr) {
+    const d = new Date(dateStr);
+    return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
+  }
 
   function updateNavHighlight() {
     const scrollY = window.scrollY + 100;
