@@ -3,6 +3,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.getElementById("backToTop");
   const navLinks = document.querySelectorAll(".nav-links a");
   const fadeElements = document.querySelectorAll(".fade-in");
+  const navToggle = document.getElementById("nav-toggle");
+  const navMenu = document.getElementById("nav-links");
+
+  navToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("open");
+    navToggle.classList.toggle("open");
+  });
+
+  navMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("open");
+      navToggle.classList.remove("open");
+    });
+  });
 
   renderBlogList();
   updateHeroStats();
