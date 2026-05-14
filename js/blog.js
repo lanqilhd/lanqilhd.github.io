@@ -20,7 +20,10 @@ function formatDate(dateStr) {
 }
 
 function renderBlogList() {
+  const VISIBLE_POSTS = 5;
   const listEl = document.getElementById("blog-list");
+  const expandWrapper = document.getElementById("blog-expand-wrapper");
+  const expandBtn = document.getElementById("blog-expand-btn");
   if (!listEl) return;
 
   if (posts.length === 0) {
@@ -29,14 +32,16 @@ function renderBlogList() {
         <div class="icon">📝</div>
         <div class="text">还没有文章，敬请期待……</div>
       </div>`;
+    if (expandWrapper) expandWrapper.style.display = "none";
     return;
   }
 
-  listEl.innerHTML = posts
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+  const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  listEl.innerHTML = sorted
     .map(
-      (post) => `
-    <div class="blog-post-card" data-post-id="${post.id}">
+      (post, idx) => `
+    <div class="blog-post-card ${idx >= VISIBLE_POSTS ? "blog-post-card-hidden" : ""}" data-post-id="${post.id}" data-post-index="${idx}">
       <div class="blog-post-info">
         <div class="blog-post-title">${post.title}</div>
         <div class="blog-post-excerpt">${post.excerpt}</div>
@@ -55,25 +60,57 @@ function renderBlogList() {
   listEl.querySelectorAll(".blog-post-card").forEach((card) => {
     card.addEventListener("click", () => {
       const postId = card.dataset.postId;
-      openPost(postId);
+      window.location.hash = "#/post/" + postId;
     });
   });
+
+  if (expandWrapper && expandBtn && sorted.length > VISIBLE_POSTS) {
+    expandWrapper.style.display = "flex";
+    expandBtn.textContent = `更多文章 ↓ (共 ${sorted.length} 篇)`;
+    const newBtn = expandBtn.cloneNode(true);
+    expandBtn.parentNode.replaceChild(newBtn, expandBtn);
+    newBtn.addEventListener("click", () => {
+      const hidden = listEl.querySelectorAll(".blog-post-card-hidden");
+      if (hidden.length > 0) {
+        hidden.forEach((c) => c.classList.remove("blog-post-card-hidden"));
+        newBtn.textContent = "收起 ↑";
+      } else {
+        sorted.forEach((_, idx) => {
+          const card = listEl.querySelector(`[data-post-index="${idx}"]`);
+          if (card && idx >= VISIBLE_POSTS) {
+            card.classList.add("blog-post-card-hidden");
+          }
+        });
+        newBtn.textContent = `更多文章 ↓ (共 ${sorted.length} 篇)`;
+        document.getElementById("blog").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  }
 }
 
-async function openPost(postId) {
+async function loadPostFromHash() {
+  const hash = window.location.hash;
+  const match = hash.match(/^#\/post\/(.+)/);
+  if (!match) {
+    closePostPage();
+    return;
+  }
+
+  const postId = match[1];
   const post = posts.find((p) => p.id === postId);
-  if (!post) return;
+  if (!post) {
+    closePostPage();
+    return;
+  }
 
   currentPostId = postId;
 
-  document.getElementById("blog-list-view").style.display = "none";
-  const detailView = document.getElementById("blog-detail-view");
-  detailView.classList.add("active");
-  detailView.innerHTML = `
-    <button class="blog-back" id="blog-back-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-      返回文章列表
-    </button>
+  document.querySelectorAll("section, .hero").forEach((el) => (el.style.display = "none"));
+  document.querySelector(".footer").style.display = "none";
+  const postPage = document.getElementById("post-page");
+  postPage.classList.add("active");
+
+  document.getElementById("post-page-content").innerHTML = `
     <div class="blog-article-header">
       <h1 class="blog-article-title">${post.title}</h1>
       <div class="blog-article-meta">
@@ -88,21 +125,23 @@ async function openPost(postId) {
     </div>
   `;
 
-  document.getElementById("blog-back-btn").addEventListener("click", closePost);
-
   try {
     const response = await fetch(post.file);
     if (!response.ok) throw new Error("文章加载失败");
     const markdown = await response.text();
-    document.getElementById("blog-article-content").innerHTML = marked.parse(markdown);
+    const contentEl = document.getElementById("blog-article-content");
+    contentEl.innerHTML = marked.parse(markdown);
+
     if (typeof renderMathInElement !== "undefined") {
-      renderMathInElement(document.getElementById("blog-article-content"), {
+      renderMathInElement(contentEl, {
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "$", right: "$", display: false }
         ]
       });
     }
+
+    generateTOC(contentEl);
     loadGiscus(postId);
   } catch (err) {
     document.getElementById("blog-article-content").innerHTML = `
@@ -112,7 +151,54 @@ async function openPost(postId) {
       </div>`;
   }
 
-  document.getElementById("blog").scrollIntoView({ behavior: "smooth" });
+  window.scrollTo({ top: 0 });
+}
+
+function generateTOC(contentEl) {
+  const tocEl = document.getElementById("post-toc");
+  if (!tocEl) return;
+  const headings = contentEl.querySelectorAll("h2, h3");
+  if (headings.length === 0) return;
+
+  headings.forEach((h, i) => {
+    const id = "heading-" + i;
+    h.id = id;
+    const a = document.createElement("a");
+    a.href = "#" + id;
+    a.textContent = h.textContent;
+    a.className = h.tagName === "H3" ? "toc-h3" : "";
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      h.scrollIntoView({ behavior: "smooth" });
+      tocEl.querySelectorAll("a").forEach((l) => l.classList.remove("active"));
+      a.classList.add("active");
+    });
+    tocEl.appendChild(a);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries
+        .filter((e) => e.isIntersecting)
+        .forEach((e) => {
+          tocEl.querySelectorAll("a").forEach((l) => l.classList.remove("active"));
+          const link = tocEl.querySelector(`a[href="#${e.target.id}"]`);
+          if (link) link.classList.add("active");
+        });
+    },
+    { rootMargin: "-80px 0px -60% 0px" }
+  );
+  headings.forEach((h) => observer.observe(h));
+}
+
+function closePostPage() {
+  currentPostId = null;
+  document.querySelectorAll("section, .hero").forEach((el) => (el.style.display = ""));
+  document.querySelector(".footer").style.display = "";
+  const postPage = document.getElementById("post-page");
+  postPage.classList.remove("active");
+  document.getElementById("post-page-content").innerHTML = "";
+  document.getElementById("post-toc").innerHTML = "";
 }
 
 function loadGiscus(postId) {
@@ -137,11 +223,4 @@ function loadGiscus(postId) {
   script.setAttribute("crossorigin", "anonymous");
   script.async = true;
   container.appendChild(script);
-}
-
-function closePost() {
-  currentPostId = null;
-  document.getElementById("blog-list-view").style.display = "block";
-  document.getElementById("blog-detail-view").classList.remove("active");
-  document.getElementById("blog-detail-view").innerHTML = "";
 }

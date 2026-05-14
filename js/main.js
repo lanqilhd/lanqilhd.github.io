@@ -6,6 +6,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderBlogList();
   updateHeroStats();
+  initExpandToggle();
+  initSearch();
+  handleHashChange();
+
+  window.addEventListener("hashchange", handleHashChange);
+
+  function handleHashChange() {
+    const hash = window.location.hash;
+    if (hash.startsWith("#/post/")) {
+      if (typeof loadPostFromHash === "function") loadPostFromHash();
+    } else {
+      if (typeof closePostPage === "function") closePostPage();
+    }
+  }
+
+  function initSearch() {
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+    if (!searchInput || !searchResults) return;
+
+    let searchTimeout;
+
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimeout);
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (query.length < 1) {
+        searchResults.style.display = "none";
+        return;
+      }
+
+      searchTimeout = setTimeout(() => {
+        const results = [];
+
+        if (typeof posts !== "undefined") {
+          posts.forEach((p) => {
+            const haystack = (p.title + " " + p.excerpt + " " + p.tags.join(" ")).toLowerCase();
+            if (haystack.includes(query)) {
+              results.push({ type: "文章", title: p.title, id: p.id, link: "#/post/" + p.id });
+            }
+          });
+        }
+
+        const projectCards = document.querySelectorAll("#projects-grid .project-card");
+        projectCards.forEach((card) => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(query)) {
+            const title = card.querySelector(".project-name").textContent;
+            results.push({ type: "项目", title: title, link: "#projects" });
+          }
+        });
+
+        if (results.length === 0) {
+          searchResults.innerHTML = '<div class="search-result-item"><span class="search-result-title">无匹配结果</span></div>';
+        } else {
+          searchResults.innerHTML = results
+            .map(
+              (r) => `
+            <a class="search-result-item" href="${r.link}">
+              <div class="search-result-title">${r.title}</div>
+              <div class="search-result-type">${r.type}</div>
+            </a>`
+            )
+            .join("");
+        }
+        searchResults.style.display = "block";
+      }, 200);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = "none";
+      }
+    });
+
+    searchResults.addEventListener("click", () => {
+      searchInput.value = "";
+      searchResults.style.display = "none";
+    });
+  }
 
   function updateHeroStats() {
     const postsEl = document.getElementById("stat-posts");
@@ -103,4 +183,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleScroll();
   handleFadeIn();
+
+  function initExpandToggle() {
+    const VISIBLE_PROJECTS = 3;
+
+    const grid = document.getElementById("projects-grid");
+    const projectWrapper = document.getElementById("projects-expand-wrapper");
+    const projectBtn = document.getElementById("projects-expand-btn");
+
+    if (grid && projectWrapper && projectBtn) {
+      const cards = grid.querySelectorAll(".project-card");
+      if (cards.length > VISIBLE_PROJECTS) {
+        projectWrapper.style.display = "flex";
+        for (let i = VISIBLE_PROJECTS; i < cards.length; i++) {
+          cards[i].classList.add("project-card-hidden");
+        }
+        projectBtn.addEventListener("click", () => {
+          const hidden = grid.querySelectorAll(".project-card-hidden");
+          if (hidden.length > 0) {
+            hidden.forEach((c) => c.classList.remove("project-card-hidden"));
+            projectBtn.textContent = "收起 ↑";
+          } else {
+            for (let i = VISIBLE_PROJECTS; i < cards.length; i++) {
+              cards[i].classList.add("project-card-hidden");
+            }
+            projectBtn.textContent = "更多项目 ↓";
+            document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      }
+    }
+  }
 });
