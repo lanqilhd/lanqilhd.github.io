@@ -90,6 +90,10 @@ async function openPost(postId) {
       </div>
     </div>
     <div class="blog-article-content" id="blog-article-content">加载中……</div>
+    <div class="giscus-wrapper">
+      <h3 class="giscus-title">评论</h3>
+      <div class="giscus" id="giscus-comments"></div>
+    </div>
   `;
 
   document.getElementById("blog-back-btn").addEventListener("click", closePost);
@@ -99,6 +103,7 @@ async function openPost(postId) {
     if (!response.ok) throw new Error("文章加载失败");
     const markdown = await response.text();
     document.getElementById("blog-article-content").innerHTML = marked.parse(markdown);
+    loadGiscus(postId);
   } catch (err) {
     document.getElementById("blog-article-content").innerHTML = `
       <div class="empty-state">
@@ -108,6 +113,30 @@ async function openPost(postId) {
   }
 
   document.getElementById("blog").scrollIntoView({ behavior: "smooth" });
+}
+
+function loadGiscus(postId) {
+  const container = document.getElementById("giscus-comments");
+  if (!container) return;
+  container.innerHTML = "";
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.setAttribute("data-repo", "lanqilhd/lanqilhd.github.io");
+  script.setAttribute("data-repo-id", "R_kgDOSdUJcA");
+  script.setAttribute("data-category", "General");
+  script.setAttribute("data-category-id", "DIC_kwDOSdUJcM4C9CgR");
+  script.setAttribute("data-mapping", "specific");
+  script.setAttribute("data-term", postId);
+  script.setAttribute("data-strict", "0");
+  script.setAttribute("data-reactions-enabled", "1");
+  script.setAttribute("data-emit-metadata", "0");
+  script.setAttribute("data-input-position", "bottom");
+  script.setAttribute("data-theme", "preferred_color_scheme");
+  script.setAttribute("data-lang", "zh-CN");
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+  container.appendChild(script);
 }
 
 function closePost() {
