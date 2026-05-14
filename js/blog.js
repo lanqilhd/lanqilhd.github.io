@@ -2,7 +2,7 @@ const posts = [
   {
     id: "svm-intro",
     title: "从一条线到高维空间：彻底搞懂支持向量机（SVM）",
-    date: "2025-07-01",
+    date: "2026-05-15",
     excerpt: "从直观的'最宽分界线'出发，深入硬间隔、软间隔、核技巧、对偶问题与SMO算法，一文讲透SVM的核心原理。",
     tags: ["机器学习", "SVM", "数学"],
     file: "posts/svm-intro.md"

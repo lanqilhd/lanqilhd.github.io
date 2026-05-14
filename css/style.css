@@ -327,7 +327,7 @@ img {
 /* ===== Hero Stats ===== */
 .hero-stats {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   padding-top: 20px;
   border-top: 1px solid var(--border);
 }
@@ -339,14 +339,14 @@ img {
 }
 
 .hero-stat-num {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
   font-variant-numeric: tabular-nums;
 }
 
 .hero-stat-label {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
 }
 

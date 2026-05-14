@@ -10,9 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateHeroStats() {
     const postsEl = document.getElementById("stat-posts");
     const updatedEl = document.getElementById("stat-updated");
+    const tagsEl = document.getElementById("stat-tags");
+    const reposEl = document.getElementById("stat-repos");
+
     if (postsEl && typeof posts !== "undefined") {
       postsEl.textContent = posts.length;
     }
+
+    if (tagsEl && typeof posts !== "undefined") {
+      const allTags = new Set();
+      posts.forEach((p) => p.tags.forEach((t) => allTags.add(t)));
+      tagsEl.textContent = allTags.size;
+    }
+
+    if (reposEl) {
+      fetch("https://api.github.com/users/lanqilhd")
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.public_repos !== undefined) {
+            reposEl.textContent = data.public_repos;
+          }
+        })
+        .catch(() => {});
+    }
+
     if (updatedEl && typeof posts !== "undefined" && posts.length > 0) {
       const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
       const latest = new Date(sorted[0].date);
