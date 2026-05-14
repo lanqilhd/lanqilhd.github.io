@@ -157,7 +157,7 @@ img {
 
 /* ===== Sections ===== */
 .section {
-  padding: 100px 0;
+  padding: 60px 0;
 }
 
 .section-title {
@@ -183,7 +183,7 @@ img {
 
 /* ===== Hero ===== */
 .hero {
-  padding: 120px 0 80px;
+  padding: 120px 0 40px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -857,7 +857,7 @@ img {
   }
 
   .section {
-    padding: 72px 0;
+    padding: 50px 0;
   }
 
   .section-title {
