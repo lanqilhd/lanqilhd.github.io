@@ -110,7 +110,7 @@ img {
 .nav-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -190,23 +190,14 @@ img {
 }
 
 .hero-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 32px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 60px;
 }
 
 .hero-card {
   flex: 1;
   max-width: 560px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 44px 36px;
-  box-shadow: var(--card-shadow);
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
 .hero-card-header {
@@ -318,8 +309,8 @@ img {
 }
 
 .hero-mascot img {
-  max-width: 320px;
-  max-height: 450px;
+  height: 100%;
+  max-width: 420px;
   border-radius: var(--radius);
   object-fit: contain;
 }
@@ -781,6 +772,10 @@ img {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
   .hero {
     padding: 100px 0 32px;
     min-height: auto;
@@ -789,12 +784,10 @@ img {
   .hero-inner {
     flex-direction: column-reverse;
     gap: 28px;
-    padding: 16px;
   }
 
   .hero-card {
     max-width: 100%;
-    padding: 28px 24px;
   }
 
   .hero-mascot {
@@ -802,8 +795,9 @@ img {
   }
 
   .hero-mascot img {
-    max-width: 200px;
-    max-height: 260px;
+    max-width: 260px;
+    height: auto;
+    max-height: 340px;
   }
 
   .hero-name {
@@ -848,20 +842,27 @@ img {
   .nav-links a {
     font-size: 0.82rem;
   }
+
+  .nav-inner {
+    padding: 0 24px;
+  }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 20px;
+  }
+
   .hero {
     padding: 100px 0 32px;
   }
 
   .hero-inner {
     gap: 24px;
-    padding: 16px;
   }
 
   .hero-card {
-    padding: 24px 20px;
+    max-width: 100%;
   }
 
   .hero-card-header {
@@ -884,6 +885,7 @@ img {
 
   .hero-mascot img {
     max-width: 170px;
+    height: auto;
     max-height: 220px;
   }
 
@@ -894,6 +896,10 @@ img {
   .hero-badge {
     font-size: 0.72rem;
     padding: 3px 10px;
+  }
+
+  .nav-inner {
+    padding: 0 20px;
   }
 
   .blog-article-title {
