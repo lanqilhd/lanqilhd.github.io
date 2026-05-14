@@ -6,22 +6,6 @@ const posts = [
     excerpt: "从直观的'最宽分界线'出发，深入硬间隔、软间隔、核技巧、对偶问题与SMO算法，一文讲透SVM的核心原理。",
     tags: ["机器学习", "SVM", "数学"],
     file: "posts/svm-intro.md"
-  },
-  {
-    id: "hello-world",
-    title: "欢迎来到我的博客",
-    date: "2025-05-10",
-    excerpt: "这是我的第一篇博客文章，记录了这个个人主页的搭建过程与初衷。",
-    tags: ["随笔", "建站"],
-    file: "posts/hello-world.md"
-  },
-  {
-    id: "learning-ml",
-    title: "机器学习入门笔记",
-    date: "2025-05-08",
-    excerpt: "整理了一些机器学习基础概念和常用算法的入门笔记，方便日后复习查阅。",
-    tags: ["机器学习", "笔记"],
-    file: "posts/learning-ml.md"
   }
 ];
 
