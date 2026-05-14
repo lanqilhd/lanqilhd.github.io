@@ -104,21 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateHeroStats() {
     const postsEl = document.getElementById("stat-posts");
     const updatedEl = document.getElementById("stat-updated");
-    const reposEl = document.getElementById("stat-repos");
 
     if (postsEl && typeof posts !== "undefined") {
       postsEl.textContent = posts.length;
-    }
-
-    if (reposEl) {
-      fetch("https://api.github.com/users/lanqilhd")
-        .then((r) => r.json())
-        .then((data) => {
-          if (data.public_repos !== undefined) {
-            reposEl.textContent = data.public_repos;
-          }
-        })
-        .catch(() => {});
     }
 
     if (updatedEl && typeof posts !== "undefined" && posts.length > 0) {

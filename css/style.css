@@ -310,7 +310,6 @@ img {
 
 .hero-card {
   flex: 0 0 auto;
-  max-width: 700px;
 }
 
 .hero-card-header {
@@ -459,7 +458,6 @@ img {
 .about-content {
   font-size: 1.1rem;
   color: var(--text);
-  max-width: 860px;
 }
 
 .about-content p {
@@ -1050,10 +1048,6 @@ img {
   .hero-name {
     font-size: 2.25rem;
   }
-
-  .about-content {
-    max-width: 800px;
-  }
 }
 
 /* ---- Tablet Landscape / Small Desktop (<=1024px) ---- */
@@ -1064,10 +1058,6 @@ img {
 
   .hero-inner {
     gap: 36px;
-  }
-
-  .hero-card {
-    max-width: 480px;
   }
 
   .hero-mascot img {
@@ -1212,7 +1202,6 @@ img {
   }
 
   .about-content {
-    max-width: 100%;
     font-size: 1rem;
   }
 
