@@ -21,7 +21,7 @@
   --radius: 10px;
   --radius-sm: 6px;
   --radius-lg: 16px;
-  --max-width: 1100px;
+  --max-width: 1200px;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", monospace;
@@ -310,7 +310,7 @@ img {
 
 .hero-card {
   flex: 0 0 auto;
-  max-width: 640px;
+  max-width: 700px;
 }
 
 .hero-card-header {
@@ -459,7 +459,7 @@ img {
 .about-content {
   font-size: 1.1rem;
   color: var(--text);
-  max-width: 760px;
+  max-width: 860px;
 }
 
 .about-content p {
@@ -925,7 +925,7 @@ img {
   flex: 1;
   min-width: 0;
   padding: 48px 48px 80px;
-  max-width: 860px;
+  max-width: 960px;
 }
 
 .post-page-content .blog-article-header {
@@ -1036,7 +1036,7 @@ img {
 /* ---- Large Desktop (>=1400px) ---- */
 @media (min-width: 1400px) {
   :root {
-    --max-width: 1200px;
+    --max-width: 1300px;
   }
 
   .hero-inner {
