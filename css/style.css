@@ -690,8 +690,13 @@ img {
 }
 
 .blog-article-content a {
-  text-decoration: underline;
-  text-underline-offset: 2px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .blog-article-content .katex {
+    font-size: 1.05em;
+  }
 }
 
 /* ===== Giscus Comments ===== */
