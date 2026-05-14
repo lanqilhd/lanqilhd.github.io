@@ -297,7 +297,7 @@ img {
 .hero-inner {
   display: flex;
   align-items: stretch;
-  gap: 60px;
+  gap: 200px;
 }
 
 .hero-left {
@@ -862,6 +862,7 @@ img {
 
 .post-page.active {
   display: flex;
+  justify-content: center;
 }
 
 .post-page-sidebar {
@@ -1038,7 +1039,7 @@ img {
   }
 
   .hero-inner {
-    gap: 80px;
+    gap: 240px;
   }
 
   .hero-mascot img {
